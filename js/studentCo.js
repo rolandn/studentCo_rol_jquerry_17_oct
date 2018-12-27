@@ -178,13 +178,13 @@ function fetchCoDisciplesCallback(ret){
 
     try
     {
-        var affiche = "Liste des co'disciples<hr>";
+        var affiche = "<p class='h3'>Liste de mes Co'Disciples</p><hr>";
         var jarray=$.parseJSON(ret);
         for(var i = 0; i<jarray.length; i++ ){
             var row=jarray[i];
             var id = row['Id'];
             var username = row['username'];
-            var ligne="<span id='co"+id + "' onclick='wallCoDisciple(this.id.substring(2),this.innerHTML);'" +
+            var ligne="<span class='h5' id='co"+id + "' onclick='wallCoDisciple(this.id.substring(2),this.innerHTML);'" +
                 " onmousemove='overElement(this);' onmouseout='outElement(this);'>";
             ligne = ligne + username + "</span><br/>";
             affiche = affiche + ligne;
@@ -263,15 +263,15 @@ function fetchTweetCallBack(ret){
     {
         if(ret.length<=2){
             var affiche = "Ecrire un tweet:<br> " +
-                "<p style=\"margin-bottom:10px\"><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:100px; \"></p>"
+                "<p style='align-content: baseline'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:100px; \"></p>"
                 +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Tweeter\" onclick=\"writeTweet("+ret+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br>Liste des tweets<hr><br>";
             $('#wall').html(affiche + "Il n'y a aucun tweet sur ce mur.");
         }
         else{
             var jarray=$.parseJSON(ret);
             var idReceiver=jarray[0]['id_receiver'];
-            var affiche = "Liste des tweets<hr>Ecrire un Tweet:<br> <p style=\"margin-bottom:10px\"><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:100px; \"><br></p>"
-                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweete\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br>Liste des tweets<hr>";
+            var affiche = "Liste des tweets<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px; \"><br></p>"
+                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweete\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br><p class='h3'>Liste des tweets</p><hr>";
             for(var i = 0; i<jarray.length; i++ ){
                 var ligne="";
                 var row=jarray[i];
@@ -309,8 +309,8 @@ function fetchTweetToDeleteCallBack(ret)
     try
     {
         var jarray=$.parseJSON(ret);
-        var affiche = "Liste des tweets vous concernant<hr>"
-            +"<input class=\"btn btn-warning\" id=\"boutonDelete\" type=\"button\" value=\"Supprimer\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br>";
+        var affiche = "Mes Tweets<hr>"
+            +"<input class=\"btn btn-warning\" id=\"boutonDelete\" type=\"button\" value=\"Supprimer le Tweet\" style=\"margin-bottom:10px; background-color:rgb(128,229,231); border:0px; font-size:12px\"><br>";
         for(var i = 0; i<jarray.length; i++ ){
             var ligne="";
             var row=jarray[i];
@@ -318,8 +318,14 @@ function fetchTweetToDeleteCallBack(ret)
             var ReceiverName = row['Name_Receiver'];
             var idTweet=row['id'];
             var textTweet = row['text'];
-            ligne = "<span id="+idTweet+" onclick=updateDelButton("+idTweet+
-                "); onmouse=overElement(this); onmouseout=outElement(this) style=\"border-width:2px; border-style:solid; border-color:black;\">Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + "</span><br/>";
+        //original
+            ligne = "<span id=\"idTweet+\" onclick='updateDelButton(id);' onmouseover='overElement(this);' onmouseout='outElement(this);' style=\"border-width:1px; border-style:solid; border-color:black;\">Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + " id = "+ idTweet+"</span><br/>";
+            affiche = affiche + ligne;
+
+        // essai
+        //    ligne = "<span id=\"idTweet\"  onclick='updateDelButton(this.idTweet);'  onmouse='overElement(this);' onmouseout='outElement(this);' style=border-width:1px; border-style:solid; border-color:black;>"
+        //        + "Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + " id = "+ idTweet+"" +
+        //        "</span><br/>";
             affiche = affiche + ligne;
         }
         $('#page').html(affiche);
@@ -332,29 +338,29 @@ function fetchTweetToDeleteCallBack(ret)
 }
 
 function updateDelButton(id){
-    window.console.log("On rentre dans la méthode updateDelButton avec id = "+id);
-    $("#boutonDelete").attr("onclick","deleteTweet("+id+")");
+    window.console.log("On rentre dans la méthode updateDelButton avec idTweet = "+ id);
+    $("#boutonDelete").attr(onclick,deleteTweet(id));
     window.console.log("On SORT de updateDelButton");
 }
 
 function deleteTweet(id){
-    window.console.log("On rentre dans la méthode deleteTweet avec id ="+id);
+    window.console.log("On rentre dans la méthode deleteTweet avec idTweet = "+ id);
     $.ajax({
         type:'GET',
         url:'bl/deleteTweet.php',
-        data: "id="+id,
+        data: "idTweet="+id,
         dataType:'text',
         success: deleteTweetCallBack
     });
 
-    window.console.log("deleteTweet() -end");
+    window.console.log("On SORT de deleteTweet");
 }
 
 function deleteTweetCallBack(ret)
 {
-    window.console.log("On rentre dans deleteTweetCallBack avec id = "+ret);
+    window.console.log("On rentre dans deleteTweetCallBack avec ret = "+ret);
     if(ret=="1"){
-        alert("Le tweet a été correctement supprimé.")
+        alert("Le tweet a été correctement supprimé avec ret = " +ret)
     }
     else{
         alert(ret);
@@ -363,6 +369,273 @@ function deleteTweetCallBack(ret)
     window.console.log("On SORT de deleteTweetCallBack");
 }
 
+function fetchCoDisciplesToDelete(){
+    window.console.log("Je rentre dans fetchCoDisciplesToDelete()");
+    $.ajax({
+        type:'GET',
+        url:'bl/fetchCoDisciples.php',
+        async: false,
+        success: fetchCoDisciplesToDeleteCallBack
+    });
+    window.console.log("Je SORS de fetchCoDisciplesToDelete()");
+}
+
+
+function fetchCoDisciplesToDeleteCallBack(ret){
+    window.console.log("Je rentre dans fetchCoDisciplesToDeleteCallBack() avec ret = " +ret);
+    try
+    {
+        var affiche = "Liste des co'disciples<hr>"+
+            "<input class=\"btn btn-warning\" id=\"boutonDeleteCoDisciple\" type=\"button\" value=\"Supprimer\" style=\"margin-bottom:10px; margin-right:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br/>";
+        var jarray=$.parseJSON(ret);
+        for(var i = 0; i<jarray.length; i++ ){
+            var row=jarray[i];
+            var id = row['Id'];
+            var username = row['username'];
+            var ligne="<span id='co"+id +"'; onclick='deleteCoDiscipleButton(this.id.substring(2),this.innerHTML);' onmousemove='overElement(this);' onmouseout='outElement(this);'>";
+            ligne = ligne + username + "</span><br/>";
+            affiche = affiche + ligne;
+        }
+        $('#page').html(affiche);
+
+    }
+    catch(err){
+        window.console.log("ERREUR dans fetchCoDisciplesToDeleteCallBack = " + err);
+    }
+    window.console.log("Je SORS defetchCoDisciplesToDeleteCallBack avec Id = " +id);
+}
+
+
+function deleteCoDiscipleButton(id){
+    window.console.log("Je rentre dans deleteCoDiscipleButton avec id = "+id);
+    $("#boutonDeleteCoDisciple").attr(onclick,deleteCoDisciples(id));
+    window.console.log("Je SORS deleteCoDiscipleButton avec id = "+id);
+}
+
+function deleteCoDisciples(id){
+    window.console.log("Je rentre dans deleteCoDisciples avec id = "+id);
+    $.ajax({
+        type:'GET',
+        url:'bl/deleteCoDisciples.php',
+        data: "id="+id,
+        dataType:'text',
+        success: deleteCoDisciplesCallBack
+    });
+
+    window.console.log("Je SORS de deleteCoDisciples");
+
+}
+
+function deleteCoDisciplesCallBack(ret){
+    window.console.log("Je rentre dans deleteCoDisciples avec ret = "+ret);
+    if(ret==1)
+    {
+        alert("Le codisciple a bien été supprimé.");
+    }
+    else{
+        alert(ret);
+    }
+    fetchCoDisciplesToDelete();
+    window.console.log("je SORS de deleteCoDisciples");
+}
+
+function addCoDisciple(){
+    window.console.log("addCoDisciple() -start");
+    $.ajax({
+        type:'GET',
+        url:'bl/addCoDisciple.php',
+        success: addCoDiscipleCallBack
+    });
+    window.console.log("addCoDisciple() -end");
+}
+
+function addCoDiscipleCallBack(ret){
+    window.console.log("addCoDiscipleCallBack() -start");
+    try
+    {
+        var jarray=$.parseJSON(ret);
+        var affiche = "Liste des co'disciples que vous pouvez inviter<hr>"
+            +"<input class=\"btn btn-warning\" id=\"boutonInvitation\" type=\"button\" value=\"Inviter\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br>";
+        for(var i = 0; i<jarray.length; i++ ){
+            var ligne="";
+            var row=jarray[i];
+            var IdUser = row['Id'];
+            var UserName = row['username'];
+            ligne = "<span id="+IdUser+"; onclick='updateInvitationButton("+IdUser+");' onmouse='overElement(this);' onmouseout=outElement(this) style=\"border-width:2px; border-style:solid; border-color:black;\">"+UserName+"</span><br/>";
+            affiche = affiche + ligne;
+        }
+        $('#page').html(affiche);
+
+    }
+    catch(err){
+        window.console.log("fetchcodiscipleCallBack -err = " + err);
+    }
+
+
+    window.console.log("addCoDiscipleCallBack() -end");
+}
+
+
+function updateInvitationButton(id){
+    window.console.log("updateInvitationButton() -start");
+    $("#boutonInvitation").attr(onclick,sendInvitation(id));
+    window.console.log("updateInvitationButton() -end");
+}
+
+function sendInvitation(id){
+    window.console.log("sendInvitation() -start");
+    $.ajax({
+        type:'GET',
+        url:'bl/sendInvitation.php',
+        data: "id="+id,
+        dataType:'text',
+        success: sendInvitationCallBack
+    });
+
+    window.console.log("sendInvitation() -end");
+}
+
+function sendInvitationCallBack(ret){
+    window.console.log("sendInvitation() -start");
+    if(ret==1)
+    {
+        alert("L'invitation a bien été envoyée.");
+    }
+    else{
+        alert(ret);
+    }
+    addCoDisciple();
+    window.console.log("sendInvitation() -end");
+}
+
+function invitationSent(){
+    window.console.log("invitationSent() -start");
+    $.ajax({
+        type:'GET',
+        url:'bl/invitationSent.php',
+        success: invitationSentCallBack
+    });
+
+    window.console.log("invitationSent() -end");
+}
+
+function invitationSentCallBack(ret){
+    window.console.log("invitationSentCallBack() -start");
+    try
+    {
+        var jarray=$.parseJSON(ret);
+        var affiche = "Liste des co'disciples à qui vous avez envoyé une invitation<hr><br/>"
+        for(var i = 0; i<jarray.length; i++ ){
+            var ligne="";
+            var row=jarray[i];
+            var UserName = row['username'];
+            ligne = UserName+": en attente d'une réponse de sa part<br/>";
+            affiche = affiche + ligne;
+        }
+        $('#page').html(affiche);
+
+    }
+    catch(err){
+        window.console.log("invitationSentCallBack -err = " + err);
+    }
+
+    window.console.log("invitationSentCallBack() -end");
+}
+
+function invitationReceived(){
+    window.console.log("invitationReceived() -start");
+    $.ajax({
+        type:'GET',
+        url:'bl/invitationReceived.php',
+        success: invitationReceivedCallBack
+    });
+
+    window.console.log("invitationReceived() -end");
+}
+
+function invitationReceivedCallBack(ret){
+    window.console.log("invitationReceivedCallBack DEBUT avec ret = "+ret);
+    try
+    {
+        var jarray=$.parseJSON(ret);
+        var affiche = "Co'disciples attendant une réponse à leur invitation<hr><br/>"+
+            "<input class=\"btn btn-warning\" id=\"boutonAccept\" type=\"button\" value=\"Accepter\" style=\"margin-bottom:10px; margin-right:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\">"
+            +"<input class=\"btn btn-warning\" id=\"boutonRefuse\" type=\"button\" value=\"Refuser\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br>";
+        for(var i = 0; i<jarray.length; i++ ){
+            var ligne="";
+            var row=jarray[i];
+            var Id = row['Id'];
+            var username = row['username'];
+            ligne = "<span id="+Id+"; onclick=choiceInvitationButtons("+Id+"); onmouse='overElement(this);' onmouseout=outElement(this); style=\"border-width:2px; border-style:"+
+                "solid; border-color:black;\">Invitation de: "+username+" en attente d'une réponse de votre part<br/>";
+            affiche = affiche + ligne;
+        }
+        $('#page').html(affiche);
+
+    }
+    catch(err){
+        window.console.log("invitationReceivedCallBack -err = " + err);
+    }
+
+    window.console.log("invitationReceivedCallBack SORTIE avec Id = "+Id);
+}
+
+function choiceInvitationButtons(id){
+    window.console.log("choiceInvitationButtons() -start");
+    $("#boutonAccept").attr("onclick","AcceptInvitation("+id+")");
+    $("#boutonRefuse").attr("onclick","RefuseInvitation("+id+")");
+    window.console.log("choiceInvitationButtons() -end");
+}
+
+function AcceptInvitation(id){
+    window.console.log("AcceptInvitation() -start");
+    $.ajax({
+        type:'GET',
+        url:'bl/AcceptInvitation.php',
+        data: "id="+id,
+        dataType:'text',
+        success: AcceptInvitationCallBack
+    });
+    window.console.log("AcceptInvitation() -end");
+}
+
+function AcceptInvitationCallBack(ret){
+    window.console.log("AcceptInvitationCallBack() -start");
+    if(ret==1)
+    {
+        alert("L'invitation a bien été acceptée.");
+    }
+    else{
+        alert(ret);
+    }
+    invitationReceived();
+    window.console.log("AcceptInvitationCallBack() -end");
+}
+
+function RefuseInvitation(id){
+    window.console.log("RefuseInvitation() -start");
+    $.ajax({
+        type:'GET',
+        url:'bl/RefuseInvitation.php',
+        data: "id="+id,
+        dataType:'text',
+        success: RefuseInvitationCallBack
+    });
+    window.console.log("RefuseInvitation() -end");
+}
+
+function RefuseInvitationCallBack(ret){
+    window.console.log("RefuseInvitationCallBack() -start");
+    if(ret==1)
+    {
+        alert("L'invitation a bien été refusée.");
+    }
+    else{
+        alert(ret);
+    }
+    invitationReceived();
+    window.console.log("RefuseInvitationCallBack() -end");
+}
 
 
 // ************************************ ANCIEN CODE *******************************************

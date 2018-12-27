@@ -19,8 +19,8 @@ body {
   /*margin-top: -256px;*//* moitié de la hauteur */ 
   margin-left: -512px; /* moitié de la largeur */ 
   /*border: 1px solid #000;*/ 
-  background-image: url(./images/fondBleuBlanc.jpg);
-  /*background-color: #e8e4de;*/
+  /*background-image: url(./images/fondBleuBlanc.jpg); */
+  background-color: honeydew;
   border-radius: 10px; 
 }
 
@@ -58,28 +58,13 @@ a:hover {
 
 #menu {
  	position:absolute;
- 	/*background-color:cyan;*/
+ 	background-color:cyan;
  	top : 70px;
  	left:10px;
  	width:130px;
  	padding: 10px;
  	background-color: transparent;
   }
- 
-#page {
-	position:absolute;
-	/*background-color:#AAAAAA;*/
-	top : 80px;
-	left : 160px;
-	width:250px;
-	/*margin: 2em;*/
-	padding: 10px;
-    height:453px;
-    border: 1px solid #b9b9b9;
-    border-radius: 10px; 
-    background-color: transparent;
-  }
-    
 
 #login {
 	position:absolute;
@@ -91,34 +76,66 @@ a:hover {
   height:50px;
   /*border: 1px solid #999;*/
   border-radius: 10px; 
-  } 
+  }
 
+#page {
+	position:absolute;
+	/*background-color:#AAAAAA;*/
+	top : 100px;
+	left : 210px;
+	width:400px;
+	/*margin: 2em;*/
+	padding: 10px;
+	height:453px;
+	border: 1px solid #b9b9b9;
+	border-radius: 10px;
+	background-color: transparent;
+}
 #wall {
 	position:absolute;
-	top : 80px;
-	left : 450px;
-	width:560px;
+	top : 100px;
+	left : 620px;
+	width:400px;
 	/*padding: 1em 1em;*/
-  height:475px;
-  /*border: 1px solid #999;*/
-  /*background-color: #f8e1dc;*/
-  background-color: rgb(217,109,109);
-  border-radius: 10px; 
-  } 
+  	height:475px;
+  	/*border: 1px solid #999;*/
+  	/*background-color: #f8e1dc;*/
+  	background-color: #9d9d9d;
+  	border-radius: 10px;
+  }
+
+.tweet {
+	position:absolute;
+	top : 10px;
+	left : 620px;
+	width:100px;
+	/*padding: 1em 1em;*/
+	height:75px;
+	/*border: 1px solid #999;*/
+	/*background-color: #f8e1dc;*/
+	background-color: rgb(217,109,109);
+	border-radius: 10px;
+}
   
 .section {
  	position:relative;
  	/*background-color:cyan;*/
  	/*left:10px;*/
- 	width:130px;
+ 	width:170px;
  	/*padding: 1em 1em;*/
- 	background-color: transparent;
+ 	background-color: honeydew;
   } 
   
 .menuP {
 	font-size: 12px;
 	margin-left: 5px;
 	color: red;
+}
+
+.menuG {
+	font-size: 12px;
+	margin-left: 5px;
+	background-color: red;
 }
 
 #sectionFond {
@@ -128,7 +145,7 @@ a:hover {
  	width:220px;
  	padding: 1em 1em;
  	background-color: transparent;
- 	background-image: url(../images/fondBleuBlanc.jpg);
+ 	background-image: url(/images/fondBleuBlanc.jpg);
   }  
   
 #pubs {
@@ -218,7 +235,7 @@ h2.title {
 
 table.news {
 	cellspacing : 5px;
-	align="left";
+	align:"left";
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	/*font-family: Georgia, Times New Roman, Times, serif;*/
 	font-size: 11px;

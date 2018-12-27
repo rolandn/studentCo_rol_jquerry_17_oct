@@ -5,7 +5,7 @@
 <title>Student'Co</title>
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 <link type="text/css" rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="CSS/bootstrap.css">
+<link rel="stylesheet" href="bootstrap.css">
 <script type="text/javascript" src="./js/studentCo.js"></script>
 <script type="text/javascript" src="./js/jquery-1.9.1.js"></script>
 
@@ -19,6 +19,7 @@
 			<table style="border-spacing: 20px">
 				<tr>
 					<td style = "font-family: Arial Black; color: rgb(217,109,109);">Student'Co</td>
+
     				<td style = "font-size: 14px; color: rgb(95,95,95);">Le site social des étudiants</td>
 				</tr>
 			</table>
@@ -33,13 +34,13 @@
 			</fieldset>
 		</div>
 
-		<div id="menu">
+		<div id="menu" class="menuG">
 
 			<div class="section">
-				<h2 class="inverse">Les tweets</h2>
+				<h2 class="inverse"><p class="h4">Les tweets</p></h2>
 				<p class="menuP">
+					<br/>
 					<a href="#" onclick="writeTweet()">Ecrire un Tweet</a><br />
-					<br /> <a href="#">Supprimer un tweet</a><br />
 					<br /> <a href="#" onclick="fetchTweet(-1);">Mon mur</a><br />
 					<br /> <a href="#" onclick="fetchCoDisciples();">Liste des Co'Disciples</a><br />
 					<br /> <a href="#" onclick="fetchTweetToDelete();">Supprimer un Tweet</a><br />
@@ -49,12 +50,13 @@
 			</div>
 
 			<div class="section">
-				<h2 class="inverse">Les Co'Disciples</h2>
+				<h2 class="inverse"><p class="h4">Les Co'Disciples</p></h2>
 				<p class="menuP">
-					<br /> <a href="#" onclick="fetchCoDisciples();">Liste des Co'Disciples</a><br />
+					<br /> <a href="#" onclick="fetchCoDisciples();" class="h5">Liste des Co'Disciples</a><br />
 					<br /> <a href="#" onclick="addCoDisciple();">Ajouter un Co'Disciple</a><br />
-					<br /> <a href="#">Supprimer un co'disciple</a><br />
-					<br /> <a href="#">Les approbations</a><br />
+					<br /> <a href="#" onclick="fetchCoDisciplesToDelete();">Supprimer un co'disciple</a><br />
+					<br /> <a href="#" onclick="invitationSent();">Les invitations que j'ai envoyées</a><br />
+					<br /> <a href="#" onclick="invitationReceived();">Les invitations que j'ai reçues</a><br />
 					<br />
 				</p>
 			</div>

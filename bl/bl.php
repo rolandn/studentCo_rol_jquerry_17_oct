@@ -94,6 +94,50 @@ function deleteTweet($id){
     return $ret;
 }
 
+function deleteCoDisciple($id, $idToDelete){
+    $ret=dbDeleteCoDisciple($id, $idToDelete);
+    return $ret;
+}
+
+function addCoDisciples($id){
+    $rows=json_encode(dbAddCoDisciples($id));
+    if (!$rows)
+        echo("Il n'y a plus de co'disciples à ajouter.");
+    else
+        return $rows;
+}
+
+function sendInvitation($idWriter, $id){
+    $ret=dbsendInvitation($idWriter, $id);
+    return $ret;
+}
+
+function invitationSent($id){
+    $rows=json_encode(dbinvitationSent($id));
+    if (!$rows)
+        echo("Il n'y aucune invitation envoyée en cours.");
+    else
+        return $rows;
+}
+
+function invitationReceived($id){
+    $rows=json_encode(dbinvitationReceived($id));
+    if (!$rows)
+        echo("Il n'y aucune invitation reçue en cours.");
+    else
+        return $rows;
+}
+
+function AcceptInvitation($idOwner, $id){
+    $ret=dbAcceptInvitation($idOwner, $id);
+    return $ret;
+}
+
+function RefuseInvitation($idOwner, $id){
+    $ret=dbRefuseInvitation($idOwner, $id);
+    return $ret;
+}
+
 
 // ANCIENNE VERSION
 //function fetchCoDisciples(){

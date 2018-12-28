@@ -178,15 +178,15 @@ function fetchCoDisciplesCallback(ret){
 
     try
     {
-        var affiche = "<p class='h3'>Liste de mes Co'Disciples</p><hr>";
+        var affiche = "<p class='h3'><span style='color: #3b5998'>Liste de mes Co'Disciples</span></p><hr>";
         var jarray=$.parseJSON(ret);
         for(var i = 0; i<jarray.length; i++ ){
             var row=jarray[i];
             var id = row['Id'];
             var username = row['username'];
-            var ligne="<span class='h5' id='co"+id + "' onclick='wallCoDisciple(this.id.substring(2),this.innerHTML);'" +
+            var ligne="<p style='color: #3b5998'><span class='h5' id='co"+id + "' onclick='wallCoDisciple(this.id.substring(2),this.innerHTML);'" +
                 " onmousemove='overElement(this);' onmouseout='outElement(this);'>";
-            ligne = ligne + username + "</span><br/>";
+            ligne = ligne + username + "</p></span><br/>";
             affiche = affiche + ligne;
         }
         $('#page').html(affiche);
@@ -263,14 +263,14 @@ function fetchTweetCallBack(ret){
     {
         if(ret.length<=2){
             var affiche = "Ecrire un tweet:<br> " +
-                "<p style='align-content: baseline'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:100px; \"></p>"
+                "<p style='align-content: baseline'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:100px;color: #3b5998; \"></p>"
                 +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Tweeter\" onclick=\"writeTweet("+ret+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br>Liste des tweets<hr><br>";
             $('#wall').html(affiche + "Il n'y a aucun tweet sur ce mur.");
         }
         else{
             var jarray=$.parseJSON(ret);
             var idReceiver=jarray[0]['id_receiver'];
-            var affiche = "Liste des tweets<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px; \"><br></p>"
+            var affiche = "Liste des tweets<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;100px;color: #3b5998;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px;100px;color: #3b5998; \"><br></p>"
                 +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweete\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br><p class='h3'>Liste des tweets</p><hr>";
             for(var i = 0; i<jarray.length; i++ ){
                 var ligne="";
@@ -386,7 +386,7 @@ function fetchCoDisciplesToDeleteCallBack(ret){
     try
     {
         var affiche = "Liste des co'disciples<hr>"+
-            "<input class=\"btn btn-warning\" id=\"boutonDeleteCoDisciple\" type=\"button\" value=\"Supprimer\" style=\"margin-bottom:10px; margin-right:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br/>";
+            "<!-- <input class=\"btn btn-warning\" id=\"boutonDeleteCoDisciple\" value=\"Cliquez pour supprimer\" style=\"margin-bottom:10px; margin-right:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"> --> <br/>";
         var jarray=$.parseJSON(ret);
         for(var i = 0; i<jarray.length; i++ ){
             var row=jarray[i];

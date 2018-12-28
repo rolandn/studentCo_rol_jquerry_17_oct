@@ -15,13 +15,13 @@ body {
   left: 50%;  
   /*top: 50%;*/ 
   width: 1024px; 
-  height: 570px; 
+  height: 670px;
   /*margin-top: -256px;*//* moitié de la hauteur */ 
   margin-left: -512px; /* moitié de la largeur */ 
   /*border: 1px solid #000;*/ 
   /*background-image: url(./images/fondBleuBlanc.jpg); */
-  background-color: honeydew;
-  border-radius: 10px; 
+  background-color: #f7f7f7;
+  /*border-radius: 0px;  */
 }
 
 a {
@@ -58,7 +58,7 @@ a:hover {
 
 #menu {
  	position:absolute;
- 	background-color:cyan;
+ 	background-color:#f7f7f7;
  	top : 70px;
  	left:10px;
  	width:130px;
@@ -75,7 +75,8 @@ a:hover {
 	/*padding: 1em 1em;*/
   height:50px;
   /*border: 1px solid #999;*/
-  border-radius: 10px; 
+  border-radius: 10px;
+	color: #f7f7f7;
   }
 
 #page {
@@ -87,8 +88,8 @@ a:hover {
 	/*margin: 2em;*/
 	padding: 10px;
 	height:453px;
-	border: 1px solid #b9b9b9;
-	border-radius: 10px;
+	border: 0px solid #b9b9b9;
+	border-radius: 0px;
 	background-color: transparent;
 }
 #wall {
@@ -100,7 +101,7 @@ a:hover {
   	height:475px;
   	/*border: 1px solid #999;*/
   	/*background-color: #f8e1dc;*/
-  	background-color: #9d9d9d;
+  	background-color: #f7f7f7;
   	border-radius: 10px;
   }
 
@@ -123,13 +124,14 @@ a:hover {
  	/*left:10px;*/
  	width:170px;
  	/*padding: 1em 1em;*/
- 	background-color: honeydew;
+ 	background-color: #dfe3ee;
+	border-radius: 10px;
   } 
   
 .menuP {
 	font-size: 12px;
 	margin-left: 5px;
-	color: red;
+	color: #3b5998;
 }
 
 .menuG {
@@ -149,10 +151,11 @@ a:hover {
   }  
   
 #pubs {
-	font-size: 12px;
+	position: center;
+	font-size: 14px;
 	margin-left: 5px;
 	/*color: rgb(95,95,95);gris*/
-	color: white
+	color: #3b5998;
 } 
 #vegetables {
 	font-size: 12px;
@@ -211,13 +214,14 @@ h2 {
 h2.inverse {
 	font-size: 12px;
 	font-weight: bold;
-	margin-bottom: 0px;
-	color: white;
-	background-color: #98a9ec;
+	margin-bottom: 10px;
+	color: #f7f7f7;
+	background-color: #3b5998;
 	/*background-image: url(../images/fondBleuBlanc.jpg);*/
 	/*width: 125px;*/
 	/*height: 20px;*/
 	text-align: center;
+	border-radius: 20px;
 }
 
 h2.title {
@@ -261,7 +265,7 @@ fieldset.inputText {
 
 input.inputText {
 	font-size: 11px;
-	color: #316D89;
+	color: #f7f7f7;
 }
 
 /* non javascript version select */

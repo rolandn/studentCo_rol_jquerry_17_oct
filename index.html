@@ -13,21 +13,21 @@
 
 <body>
 
-	<div id="global">
+	<div id="global" style="border-radius: 10px">
 
 		<div id="header">
-			<table style="border-spacing: 20px">
+			<table style="border-spacing: 50px; width:1024px">
 				<tr>
-					<td style = "font-family: Arial Black; color: rgb(217,109,109);">Student'Co</td>
+					<td style = "font-family: Arial Black; color: #f7f7f7; background-color: #3b5998; border-radius: 10px"><p class="h1"><span style="margin-left: 50px">Student'Co</span></p><p class="h4"><span style="margin-left: 50px">Le site social des étudiants</span></p></td>
 
-    				<td style = "font-size: 14px; color: rgb(95,95,95);">Le site social des étudiants</td>
+					<!--	<td style = "font-size: 14px; color: #f7f7f7;background-color: #3b5998; position: center"><p class="h3">Le site social des étudiants</p></td>  -->
 				</tr>
 			</table>
 		</div>
 
-		<div id="login">
+		<div id="login" >
 			<fieldset class="inputText">
-				<legend id="connectBox">Déconnecté</legend>
+				<legend id="connectBox" style="color: #f7f7f7" class="h5">Déconnecté</legend>
 				<input class="inputText" style="width: 80px;" id="logUsername" type="text" name="username" maxlength="8" value="" title="Votre nom d'utilisateur." />
 				<input class="inputText" style="width: 80px;" id="logPassword" type="password" name="password" maxlength="8" value="" title="Votre mot de passe." />
 				<input style="width: 90px;" id="boutonLogin" type="button" value="Se connecter" onclick="doConnect();" />
@@ -40,10 +40,9 @@
 				<h2 class="inverse"><p class="h4">Les tweets</p></h2>
 				<p class="menuP">
 					<br/>
-					<a href="#" onclick="writeTweet()">Ecrire un Tweet</a><br />
-					<br /> <a href="#" onclick="fetchTweet(-1);">Mon mur</a><br />
-					<br /> <a href="#" onclick="fetchCoDisciples();">Liste des Co'Disciples</a><br />
-					<br /> <a href="#" onclick="fetchTweetToDelete();">Supprimer un Tweet</a><br />
+					<a href="#" onclick="writeTweet()" class="h5">Ecrire un Tweet</a><br />
+					<br /> <a href="#" onclick="fetchTweet(-1);" class="h5">Mon mur</a><br />
+					<br /> <a href="#" onclick="fetchTweetToDelete();" class="h5">Supprimer un Tweet</a><br />
 					<br />
 					<br />
 				</p>
@@ -53,10 +52,10 @@
 				<h2 class="inverse"><p class="h4">Les Co'Disciples</p></h2>
 				<p class="menuP">
 					<br /> <a href="#" onclick="fetchCoDisciples();" class="h5">Liste des Co'Disciples</a><br />
-					<br /> <a href="#" onclick="addCoDisciple();">Ajouter un Co'Disciple</a><br />
-					<br /> <a href="#" onclick="fetchCoDisciplesToDelete();">Supprimer un co'disciple</a><br />
-					<br /> <a href="#" onclick="invitationSent();">Les invitations que j'ai envoyées</a><br />
-					<br /> <a href="#" onclick="invitationReceived();">Les invitations que j'ai reçues</a><br />
+					<br /> <a href="#" onclick="addCoDisciple();" class="h5">Ajouter un Co'Disciple</a><br />
+					<br /> <a href="#" onclick="fetchCoDisciplesToDelete();" class="h5">Supprimer un co'disciple</a><br />
+					<br /> <a href="#" onclick="invitationSent();" class="h5">Les invitations que j'ai envoyées</a><br />
+					<br /> <a href="#" onclick="invitationReceived();" class="h5">Les invitations que j'ai reçues</a><br />
 					<br />
 				</p>
 			</div>

@@ -56,7 +56,7 @@ OR (approval.guest_id = '$id' AND login.Id = approval.owner_id)) AND approval.st
 function dbListOfCoTweets($id){
 
     $sql="select table1.* from (
-select login.UserName, tweet.* from tweet inner join login
+select login.username, tweet.* from tweet inner join login
  on login.Id=tweet.id_writer) as table1
  where table1.id_receiver='$id'";
 

@@ -244,6 +244,13 @@ function writeTweetCallBack(ret){
     window.console.log("On SORT dans la méthode writeTweetCallBack");
 }
 
+/**
+ * Pour lister les tweets
+ * @param id : id du tweet
+ * @param
+ * @returns fetchTweetCallBack (response)
+ */
+
 function fetchTweet(id){
     window.console.log("On rentre dans la méthode fetchTweet avec id = "+id);
     $.ajax({
@@ -270,12 +277,12 @@ function fetchTweetCallBack(ret){
         else{
             var jarray=$.parseJSON(ret);
             var idReceiver=jarray[0]['id_receiver'];
-            var affiche = "Liste des tweets<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;100px;color: #3b5998;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px;100px;color: #3b5998; \"><br></p>"
+            var affiche = "<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;100px;color: #3b5998;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px;100px;color: #3b5998; \"><br></p>"
                 +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweete\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br><p class='h3'>Liste des tweets</p><hr>";
             for(var i = 0; i<jarray.length; i++ ){
                 var ligne="";
                 var row=jarray[i];
-                var WriterName = row['UserName'];
+                var WriterName = row['username'];
                 var textTweet = row['text'];
                 ligne = "Posté par " + WriterName + ": " + textTweet + "</span><br/>";
                 affiche = affiche + ligne;
@@ -290,6 +297,12 @@ function fetchTweetCallBack(ret){
     window.console.log("On SORT de fetchTweetCallBack");
 }
 
+/**
+ * Pour lister les tweet quu l'utilisateur peut supprimer
+ * @param
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function fetchTweetToDelete(){
     window.console.log("On rentre dans la méthode fetchTweetToDelete");
     if(g_isConnected==true)
@@ -454,14 +467,14 @@ function addCoDiscipleCallBack(ret){
     try
     {
         var jarray=$.parseJSON(ret);
-        var affiche = "Liste des co'disciples que vous pouvez inviter<hr>"
-            +"<input class=\"btn btn-warning\" id=\"boutonInvitation\" type=\"button\" value=\"Inviter\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br>";
+        var affiche = "Liste des Co'Disciples que vous pouvez inviter<hr>"
+            +"<br>";
         for(var i = 0; i<jarray.length; i++ ){
             var ligne="";
             var row=jarray[i];
             var IdUser = row['Id'];
             var UserName = row['username'];
-            ligne = "<span id="+IdUser+"; onclick='updateInvitationButton("+IdUser+");' onmouse='overElement(this);' onmouseout=outElement(this) style=\"border-width:2px; border-style:solid; border-color:black;\">"+UserName+"</span><br/>";
+            ligne = "<span id='"+IdUser+"'; onclick='updateInvitationButton("+IdUser+");' onmousemove='overElement(this);' onmouseout='outElement(this);'>"+UserName+"</span><br/>"
             affiche = affiche + ligne;
         }
         $('#page').html(affiche);
@@ -566,8 +579,8 @@ function invitationReceivedCallBack(ret){
             var row=jarray[i];
             var Id = row['Id'];
             var username = row['username'];
-            ligne = "<span id="+Id+"; onclick=choiceInvitationButtons("+Id+"); onmouse='overElement(this);' onmouseout=outElement(this); style=\"border-width:2px; border-style:"+
-                "solid; border-color:black;\">Invitation de: "+username+" en attente d'une réponse de votre part<br/>";
+            ligne = "<span id="+Id+"; onclick=choiceInvitationButtons("+Id+"); onmouse='overElement(this);' onmouseout=outElement(this); style=\""+
+                "solid; border-color:black;\">Invitation de : "+username+" en attente d'une réponse de votre part<br/>";
             affiche = affiche + ligne;
         }
         $('#page').html(affiche);

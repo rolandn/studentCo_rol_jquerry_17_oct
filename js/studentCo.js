@@ -148,8 +148,14 @@ function pubs() {
     window.console.log("Je sors dans la fct° pubs() ");
 }
 
+/**
+ * Affiche les pubs
+ * @param ret = liste des pubs
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function pubsCallback(ret){
-    window.console.log("Je rentre dans la fct° pubsCallback() ");
+    window.console.log("Je rentre dans la fct° pubsCallback() avec ret = "+ret);
     $('#wall').html(ret);
     $('#page').html("");
     window.console.log("Je sors dans la fct° pubsCallback() ");
@@ -161,8 +167,7 @@ function pubsCallback(ret){
  * @param
  * @returns fetchCoDisciplesCallback (response)
  */
-
-    function fetchCoDisciples() {
+function fetchCoDisciples() {
         window.console.log("Je rentre dans fetchCoDisciple");
         $.ajax({
             type: 'GET',
@@ -172,7 +177,12 @@ function pubsCallback(ret){
         });
         window.console.log("Je sors de fetchCoDisciple");
     }
-
+/**
+ * Fait apparaître les CoDisciples
+ * @param ret = liste des codisciples en retour de fetchCoDisciples
+ * @param
+ * @returns
+ */
 function fetchCoDisciplesCallback(ret){
     window.console.log("J'ai eu un success dans fectchCoDisciple -> je rentre dans fetchCoDiCallBack");
 
@@ -205,6 +215,12 @@ function outElement(e) {
     e.style.cursor="default";
 }
 
+/**
+ * Pour écrire un tweet
+ * @param id= id du CoDiscilple pour lequel on veut voir le mur
+ * @param alias : le nom du codisciple
+ * @returns writeTweetCallBack (response)
+ */
 function wallCoDisciple(id, alias) {
 
     window.console.log("Je rentre dans wallCoDisciple avec id = "+id);
@@ -217,10 +233,9 @@ function wallCoDisciple(id, alias) {
 /**
  * Pour écrire un tweet
  * @param idReceiver : id de l'utilisateur qui reçoit un tweet sur son mur
- * @param
+ * @param text : texte du tweet
  * @returns writeTweetCallBack (response)
  */
-
 function writeTweet(idReceiver){
     window.console.log("On rentre dans la méthode writeTweet");
     var text=$('#textBoxNewTweet').val();
@@ -235,6 +250,12 @@ function writeTweet(idReceiver){
     window.console.log("On SORT dans la méthode writeTweet");
 }
 
+/**
+ * Pour lister les tweet quu l'utilisateur peut supprimer
+ * @param
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function writeTweetCallBack(ret){
     window.console.log("On rentre dans la méthode writeTweetCallBack avec ret = "+ret);
     if(ret!="")
@@ -250,7 +271,6 @@ function writeTweetCallBack(ret){
  * @param
  * @returns fetchTweetCallBack (response)
  */
-
 function fetchTweet(id){
     window.console.log("On rentre dans la méthode fetchTweet avec id = "+id);
     $.ajax({
@@ -264,13 +284,19 @@ function fetchTweet(id){
     window.console.log("On SORT dans la méthode fetchTweet");
 }
 
+/**
+ * Fait apparaître les CoDisciples
+ * @param ret = liste des tweets
+ * @param
+ * @returns
+ */
 function fetchTweetCallBack(ret){
-    window.console.log("On rentre dans la méthode fetchTweetCallBack avec ret = "+ret);
+    window.console.log("On rentre dans la méthode fetchTweetCallBack avec ret = "+ret);  // ret est bien le login de l'utilisateur courant
     try
     {
         if(ret.length<=2){
             var affiche = "Ecrire un tweet:<br> " +
-                "<p style='align-content: baseline'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:100px;color: #3b5998; \"></p>"
+                "<p style='align-content: baseline'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:300px;color: #3b5998; \"></p>"
                 +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Tweeter\" onclick=\"writeTweet("+ret+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br>Liste des tweets<hr><br>";
             $('#wall').html(affiche + "Il n'y a aucun tweet sur ce mur.");
         }
@@ -278,7 +304,7 @@ function fetchTweetCallBack(ret){
             var jarray=$.parseJSON(ret);
             var idReceiver=jarray[0]['id_receiver'];
             var affiche = "<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;100px;color: #3b5998;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px;100px;color: #3b5998; \"><br></p>"
-                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweete\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br><p class='h3'>Liste des tweets</p><hr>";
+                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweet\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br><p class='h3'>Liste des tweets</p><hr>";
             for(var i = 0; i<jarray.length; i++ ){
                 var ligne="";
                 var row=jarray[i];
@@ -297,89 +323,11 @@ function fetchTweetCallBack(ret){
     window.console.log("On SORT de fetchTweetCallBack");
 }
 
-/**
- * Pour lister les tweet quu l'utilisateur peut supprimer
- * @param
- * @param
- * @returns fetchTweetToDeleteCallBack (response)
- */
-function fetchTweetToDelete(){
-    window.console.log("On rentre dans la méthode fetchTweetToDelete");
-    if(g_isConnected==true)
-    {
-        $.ajax({
-            type:'GET',
-            url:'bl/fetchTweetToDelete.php',
-            success: fetchTweetToDeleteCallBack
-        });
-    }
-    window.console.log("On SORT de fetchTweetToDelete");
-}
-
-function fetchTweetToDeleteCallBack(ret)
-{
-    window.console.log("On rentre dans la méthode fetchTweetToDeleteCallBack avec ret = "+ret);
-    try
-    {
-        var jarray=$.parseJSON(ret);
-        var affiche = "Mes Tweets<hr>"
-            +"<input class=\"btn btn-warning\" id=\"boutonDelete\" type=\"button\" value=\"Supprimer le Tweet\" style=\"margin-bottom:10px; background-color:rgb(128,229,231); border:0px; font-size:12px\"><br>";
-        for(var i = 0; i<jarray.length; i++ ){
-            var ligne="";
-            var row=jarray[i];
-            var WriterName = row['Name_Writer'];
-            var ReceiverName = row['Name_Receiver'];
-            var idTweet=row['id'];
-            var textTweet = row['text'];
-        //original
-            ligne = "<span id=\"idTweet+\" onclick='updateDelButton(id);' onmouseover='overElement(this);' onmouseout='outElement(this);' style=\"border-width:1px; border-style:solid; border-color:black;\">Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + " id = "+ idTweet+"</span><br/>";
-            affiche = affiche + ligne;
-
-        // essai
-        //    ligne = "<span id=\"idTweet\"  onclick='updateDelButton(this.idTweet);'  onmouse='overElement(this);' onmouseout='outElement(this);' style=border-width:1px; border-style:solid; border-color:black;>"
-        //        + "Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + " id = "+ idTweet+"" +
-        //        "</span><br/>";
-            affiche = affiche + ligne;
-        }
-        $('#page').html(affiche);
-
-    }
-    catch(err){
-        window.console.log("Erreur dans fetchTweetToDeleteCallBack. Erreur = " + err);
-    }
-    window.console.log("On SORT de fetchTweetToDeleteCallBack");
-}
 
 function updateDelButton(id){
     window.console.log("On rentre dans la méthode updateDelButton avec idTweet = "+ id);
     $("#boutonDelete").attr(onclick,deleteTweet(id));
     window.console.log("On SORT de updateDelButton");
-}
-
-function deleteTweet(id){
-    window.console.log("On rentre dans la méthode deleteTweet avec idTweet = "+ id);
-    $.ajax({
-        type:'GET',
-        url:'bl/deleteTweet.php',
-        data: "idTweet="+id,
-        dataType:'text',
-        success: deleteTweetCallBack
-    });
-
-    window.console.log("On SORT de deleteTweet");
-}
-
-function deleteTweetCallBack(ret)
-{
-    window.console.log("On rentre dans deleteTweetCallBack avec ret = "+ret);
-    if(ret=="1"){
-        alert("Le tweet a été correctement supprimé avec ret = " +ret)
-    }
-    else{
-        alert(ret);
-    }
-    fetchTweetToDelete();
-    window.console.log("On SORT de deleteTweetCallBack");
 }
 
 function fetchCoDisciplesToDelete(){
@@ -393,7 +341,12 @@ function fetchCoDisciplesToDelete(){
     window.console.log("Je SORS de fetchCoDisciplesToDelete()");
 }
 
-
+/**
+ * Pour lister les CoDisciples que je peux supprimer
+ * @param ret = liste des CoDisciples
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function fetchCoDisciplesToDeleteCallBack(ret){
     window.console.log("Je rentre dans fetchCoDisciplesToDeleteCallBack() avec ret = " +ret);
     try
@@ -418,13 +371,24 @@ function fetchCoDisciplesToDeleteCallBack(ret){
     window.console.log("Je SORS defetchCoDisciplesToDeleteCallBack avec Id = " +id);
 }
 
-
+/**
+ * Pour lancer la suppression d'un CoDisciple
+ * @param
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function deleteCoDiscipleButton(id){
     window.console.log("Je rentre dans deleteCoDiscipleButton avec id = "+id);
     $("#boutonDeleteCoDisciple").attr(onclick,deleteCoDisciples(id));
     window.console.log("Je SORS deleteCoDiscipleButton avec id = "+id);
 }
 
+/**
+ * Action pour supprimer un CoDisciple
+ * @param id = id du CoDisciple visé
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function deleteCoDisciples(id){
     window.console.log("Je rentre dans deleteCoDisciples avec id = "+id);
     $.ajax({
@@ -439,6 +403,12 @@ function deleteCoDisciples(id){
 
 }
 
+/**
+ * Retour d'info sur la suppression du CoDisciple
+ * @param ret = si = 1 = OK, bien supprimé
+ * @param
+ * @returns
+ */
 function deleteCoDisciplesCallBack(ret){
     window.console.log("Je rentre dans deleteCoDisciples avec ret = "+ret);
     if(ret==1)
@@ -452,18 +422,30 @@ function deleteCoDisciplesCallBack(ret){
     window.console.log("je SORS de deleteCoDisciples");
 }
 
+/**
+ * Pour lancer l'ajout d'un CoDisciple
+ * @param
+ * @param
+ * @returns adCoDiscipleCallBack
+ */
 function addCoDisciple(){
-    window.console.log("addCoDisciple() -start");
+    window.console.log("Je rentre dans addCoDisciple()");
     $.ajax({
         type:'GET',
         url:'bl/addCoDisciple.php',
         success: addCoDiscipleCallBack
     });
-    window.console.log("addCoDisciple() -end");
+    window.console.log("Je SORS de addCoDisciple()");
 }
 
+/**
+ * Retour sur la procédure d'ajout du CoDiscilple
+ * @param  ret = liste des user encore non CoDisciples
+ * @param
+ * @returns
+ */
 function addCoDiscipleCallBack(ret){
-    window.console.log("addCoDiscipleCallBack() -start");
+    window.console.log("Je rentre dans addCoDiscipleCallBack() avec ret = "+ret);
     try
     {
         var jarray=$.parseJSON(ret);
@@ -485,7 +467,7 @@ function addCoDiscipleCallBack(ret){
     }
 
 
-    window.console.log("addCoDiscipleCallBack() -end");
+    window.console.log("Je SORS de addCoDiscipleCallBack()");
 }
 
 
@@ -495,8 +477,14 @@ function updateInvitationButton(id){
     window.console.log("updateInvitationButton() -end");
 }
 
+/**
+ * Pour lancer l'invitation d'ajout d'un CoDisciple
+ * @param  id = id de l'user que je veux ajouter
+ * @param
+ * @returns sendInvitationCallBack
+ */
 function sendInvitation(id){
-    window.console.log("sendInvitation() -start");
+    window.console.log("Je rentre dans sendInvitation() avec id = "+id);
     $.ajax({
         type:'GET',
         url:'bl/sendInvitation.php',
@@ -505,11 +493,17 @@ function sendInvitation(id){
         success: sendInvitationCallBack
     });
 
-    window.console.log("sendInvitation() -end");
+    window.console.log("Je SORS de sendInvitation()");
 }
 
+/**
+ * Retour d'info sur le processus d'envoi de l'invitation
+ * @param  ret = retour sur le statuts de l'invitation. Si = 1 = OK
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
 function sendInvitationCallBack(ret){
-    window.console.log("sendInvitation() -start");
+    window.console.log("Je rentre dans sendInvitation() avec ret = "+ret);
     if(ret==1)
     {
         alert("L'invitation a bien été envoyée.");
@@ -518,22 +512,34 @@ function sendInvitationCallBack(ret){
         alert(ret);
     }
     addCoDisciple();
-    window.console.log("sendInvitation() -end");
+    window.console.log("Je SORS de sendInvitation()");
 }
 
+/**
+ * Liste les invitations qui ont été lancées
+ * @param
+ * @param
+ * @returns invitationSentCallBack
+ */
 function invitationSent(){
-    window.console.log("invitationSent() -start");
+    window.console.log("Je rentre dans invitationSent()");
     $.ajax({
         type:'GET',
         url:'bl/invitationSent.php',
         success: invitationSentCallBack
     });
 
-    window.console.log("invitationSent() -end");
+    window.console.log("Je SORS de invitationSent()");
 }
 
+/**
+ * Retourne la liste des invitations lancées
+ * @param ret : liste des invitations
+ * @param
+ * @returns
+ */
 function invitationSentCallBack(ret){
-    window.console.log("invitationSentCallBack() -start");
+    window.console.log("Je rentre dans invitationSentCallBack() avec ret = "+ret);
     try
     {
         var jarray=$.parseJSON(ret);
@@ -549,23 +555,35 @@ function invitationSentCallBack(ret){
 
     }
     catch(err){
-        window.console.log("invitationSentCallBack -err = " + err);
+        window.console.log("invitationSentCallBack erreur = " + err);
     }
 
-    window.console.log("invitationSentCallBack() -end");
+    window.console.log("Je SORS de invitationSentCallBack()");
 }
 
+/**
+ * Envoie la requête pour lister les invitations reçues
+ * @param ret :
+ * @param
+ * @returns  invitationReceivedCallBack
+ */
 function invitationReceived(){
-    window.console.log("invitationReceived() -start");
+    window.console.log("Je rentre dans invitationReceived()");
     $.ajax({
         type:'GET',
         url:'bl/invitationReceived.php',
         success: invitationReceivedCallBack
     });
 
-    window.console.log("invitationReceived() -end");
+    window.console.log("Je SORS de invitationReceived()");
 }
 
+/**
+ * Retour d'info avec la liste des invitations reçues
+ * @param  ret : liste des invitations
+ * @param
+ * @returns
+ */
 function invitationReceivedCallBack(ret){
     window.console.log("invitationReceivedCallBack DEBUT avec ret = "+ret);
     try
@@ -593,6 +611,13 @@ function invitationReceivedCallBack(ret){
     window.console.log("invitationReceivedCallBack SORTIE avec Id = "+Id);
 }
 
+
+/**
+ * Méthode pour les boutons accepter ou refuser l'invitation
+ * @param  id : id de l'utilisateur visé par l'accepation/le refus
+ * @param
+ * @returns
+ */
 function choiceInvitationButtons(id){
     window.console.log("choiceInvitationButtons() -start");
     $("#boutonAccept").attr("onclick","AcceptInvitation("+id+")");
@@ -600,6 +625,12 @@ function choiceInvitationButtons(id){
     window.console.log("choiceInvitationButtons() -end");
 }
 
+/**
+ *
+ * @param
+ * @param
+ * @returns
+ */
 function AcceptInvitation(id){
     window.console.log("AcceptInvitation() -start");
     $.ajax({
@@ -612,8 +643,14 @@ function AcceptInvitation(id){
     window.console.log("AcceptInvitation() -end");
 }
 
+/**
+ * Pour le retour d'info sur l'acceptaion de l'invitation
+ * @param  ret : info en retour. Si = 1 = OK
+ * @param
+ * @returns
+ */
 function AcceptInvitationCallBack(ret){
-    window.console.log("AcceptInvitationCallBack() -start");
+    window.console.log("Je rentre dans AcceptInvitationCallBack() avec ret = "+ret);
     if(ret==1)
     {
         alert("L'invitation a bien été acceptée.");
@@ -622,9 +659,15 @@ function AcceptInvitationCallBack(ret){
         alert(ret);
     }
     invitationReceived();
-    window.console.log("AcceptInvitationCallBack() -end");
+    window.console.log("Je SORS de AcceptInvitationCallBack()");
 }
 
+/**
+ *
+ * @param
+ * @param
+ * @returns
+ */
 function RefuseInvitation(id){
     window.console.log("RefuseInvitation() -start");
     $.ajax({
@@ -637,8 +680,14 @@ function RefuseInvitation(id){
     window.console.log("RefuseInvitation() -end");
 }
 
+/**
+ * Pour le retour d'info sur le refus de l'invitation
+ * @param  ret : info en retour. Si = 1 = OK
+ * @param
+ * @returns
+ */
 function RefuseInvitationCallBack(ret){
-    window.console.log("RefuseInvitationCallBack() -start");
+    window.console.log("RefuseInvitationCallBack() avec ret = "+ret);
     if(ret==1)
     {
         alert("L'invitation a bien été refusée.");
@@ -647,11 +696,94 @@ function RefuseInvitationCallBack(ret){
         alert(ret);
     }
     invitationReceived();
-    window.console.log("RefuseInvitationCallBack() -end");
+    window.console.log("Je SORS de RefuseInvitationCallBack()");
 }
 
 
 // ************************************ ANCIEN CODE *******************************************
+
+
+// function deleteTweet(id){
+//     window.console.log("On rentre dans la méthode deleteTweet avec idTweet = "+ id);
+//     $.ajax({
+//         type:'GET',
+//         url:'bl/deleteTweet.php',
+//         data: "idTweet="+id,
+//         dataType:'text',
+//         success: deleteTweetCallBack
+//     });
+//
+//     window.console.log("On SORT de deleteTweet");
+// }
+//
+// function deleteTweetCallBack(ret)
+// {
+//     window.console.log("On rentre dans deleteTweetCallBack avec ret = "+ret);
+//     if(ret=="1"){
+//         alert("Le tweet a été correctement supprimé avec ret = " +ret)
+//     }
+//     else{
+//         alert(ret);
+//     }
+//     fetchTweetToDelete();
+//     window.console.log("On SORT de deleteTweetCallBack");
+// }
+
+/**
+ * Pour lister les tweet quu l'utilisateur peut supprimer
+ * @param
+ * @param
+ * @returns fetchTweetToDeleteCallBack (response)
+ */
+// function fetchTweetToDelete(){
+//     window.console.log("On rentre dans la méthode fetchTweetToDelete");
+//     if(g_isConnected==true)
+//     {
+//         $.ajax({
+//             type:'GET',
+//             url:'bl/fetchTweetToDelete.php',
+//             success: fetchTweetToDeleteCallBack
+//         });
+//     }
+//     window.console.log("On SORT de fetchTweetToDelete");
+// }
+//
+// function fetchTweetToDeleteCallBack(ret)
+// {
+//     window.console.log("On rentre dans la méthode fetchTweetToDeleteCallBack avec ret = "+ret);
+//     try
+//     {
+//         var jarray=$.parseJSON(ret);
+//         var affiche = "Mes Tweets<hr>"
+//             +"<input class=\"btn btn-warning\" id=\"boutonDelete\" type=\"button\" value=\"Supprimer le Tweet\" style=\"margin-bottom:10px; background-color:rgb(128,229,231); border:0px; font-size:12px\"><br>";
+//         for(var i = 0; i<jarray.length; i++ ){
+//             var ligne="";
+//             var row=jarray[i];
+//             var WriterName = row['Name_Writer'];
+//             var ReceiverName = row['Name_Receiver'];
+//             var idTweet=row['id'];
+//             var textTweet = row['text'];
+//         original
+//             ligne = "<span id=\"idTweet+\" onclick='updateDelButton(id);' onmouseover='overElement(this);' onmouseout='outElement(this);' style=\"border-width:1px; border-style:solid; border-color:black;\">Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + " id = "+ idTweet+"</span><br/>";
+//             affiche = affiche + ligne;
+
+// essai
+//    ligne = "<span id=\"idTweet\"  onclick='updateDelButton(this.idTweet);'  onmouse='overElement(this);' onmouseout='outElement(this);' style=border-width:1px; border-style:solid; border-color:black;>"
+//        + "Posté par " + WriterName + " à " + ReceiverName + ": " + textTweet + " id = "+ idTweet+"" +
+//        "</span><br/>";
+//             affiche = affiche + ligne;
+//         }
+//         $('#page').html(affiche);
+//
+//     }
+//     catch(err){
+//         window.console.log("Erreur dans fetchTweetToDeleteCallBack. Erreur = " + err);
+//     }
+//     window.console.log("On SORT de fetchTweetToDeleteCallBack");
+// }
+
+
+
 
     // function fetchCoDisciplesCallback(ret) {
     //     window.console.log("J'ai eu un success dans fectchCoDisciple -> je rentre dans fetchCoDiCallBack");

@@ -5,7 +5,7 @@ require_once 'bl.php';
 /**
  * l'utilisateur reçoit la liste de ses co'disciples
  * @param string id: id du codisciple
- * @return JSon la liste des co'disciples, rien sinon
+ * @return JSon, "ret"= la liste des co'disciples, rien sinon
  */
 
 session_start();

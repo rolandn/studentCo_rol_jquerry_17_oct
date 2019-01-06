@@ -9,7 +9,7 @@
 
 require_once 'connect.php';
 
-/**Pour les commentaires, voir page php relative**/
+
 
 /**
  * dbReadLogin : Lire un login de la DB
@@ -36,6 +36,12 @@ function dbReadLogin($username, $password){
     }
 }
 
+/**
+ * dbListOfCoDisciples : Lire la liste des coDicilples
+ * @param int $id de l'utilisateur dont on veut lister les codiscilples
+ * @param
+ * @return
+ */
 function dbListOfCoDisciples($id){
 
 
@@ -53,6 +59,12 @@ OR (approval.guest_id = '$id' AND login.Id = approval.owner_id)) AND approval.st
     }
 }
 
+/**
+ * dbListOfCoTweets : Lire les tweets des codisciples
+ * @param int $id de l'utilisateur dont on veut lister les tweets codiscilples
+ * @param
+ * @return
+ */
 function dbListOfCoTweets($id){
 
     $sql="select table1.* from (
@@ -71,6 +83,13 @@ select login.username, tweet.* from tweet inner join login
 
 }
 
+/**
+ * dbwriteTweet : Ecrire un tweet sur le mur d'un codiscilple
+ * @param int $idReceiver de l'utilisateur qui va recevoir le tweet sur son mur
+ * @param int $idWriter : id de l'écrivain du tweet
+ * @param string $text : texte du tweet
+ * @return
+ */
 function dbwriteTweet($idReceiver, $idWriter, $text){
     $retVal=false;
 
@@ -90,7 +109,12 @@ function dbwriteTweet($idReceiver, $idWriter, $text){
     return $retVal;
 }
 
-
+/**
+ * dbfetchTweetToDelete : Lister les tweets qu'on peut supprimer
+ * @param int $id de l'utilisateur connecté
+ * @param
+ * @return
+ */
 function dbfetchTweetToDelete($id){
     $sql="select * from
 	(select table1.*, (login.UserName) as Name_Receiver from 
@@ -108,6 +132,12 @@ function dbfetchTweetToDelete($id){
     }
 }
 
+/**
+ * dbDeleteTweet : Suppression d'un tweet
+ * @param int $id du tweet
+ * @param
+ * @return
+ */
 function dbDeleteTweet($id){
     $retVal=false;
     $sql="DELETE FROM `tweet` WHERE idTweet='$id'";
@@ -126,6 +156,12 @@ function dbDeleteTweet($id){
     return $retVal;
 }
 
+/**
+ * dbDeleteCoDisciple : Supprimer un codisciple
+ * @param int $id de l'utilisateur connecté
+ * @param  int $id de l'utilisateur dont on ne veut plus être ami
+ * @return
+ */
 function dbDeleteCoDisciple($id, $idToDelete){
     $retVal=false;
     $sql="UPDATE `approval` SET status=NULL WHERE (owner_id='$id' and guest_id='$idToDelete') or (owner_id='$idToDelete' and guest_id='$id')";
@@ -144,6 +180,12 @@ function dbDeleteCoDisciple($id, $idToDelete){
     return $retVal;
 }
 
+/**
+ * dbAddCoDisciples : Ajouter un codisciple
+ * @param int $id de l'utilisateur qu'on veut ajouter
+ * @param
+ * @return
+ */
 function dbAddCoDisciples($id)
 {
     $sql="select login.Id, login.username from login where login.Id NOT IN (
@@ -173,6 +215,12 @@ function dbAddCoDisciples($id)
 
 }
 
+/**
+ * dbsendInvitation : Envoyer une invitation
+ * @param int $id de l'utilisateur qu'on veut ajouter
+ * @param int $idWriter id de l'utilisateur qui lance l'invitation
+ * @return
+ */
 function dbsendInvitation($idWriter, $id){
     $retVal=false;
     $sql="INSERT INTO `approval`(`owner_id`, `guest_id`, `status`) VALUES ('$idWriter','$id',0)";
@@ -191,6 +239,12 @@ function dbsendInvitation($idWriter, $id){
     return $retVal;
 }
 
+/**
+ * dbinvitationSent : Lister les invitations lancées
+ * @param int $id de l'utilisateur courant dont on cherche les invitations lancées
+ * @param
+ * @return
+ */
 function dbinvitationSent($id){
     $sql="select login.Id, login.username from 
 	(select * from approval where owner_id='$id' and status=0) as table1 inner join login 
@@ -206,6 +260,12 @@ function dbinvitationSent($id){
 
 }
 
+/**
+ * dbinvitationReceived : Lister les invitations reçues
+ * @param int $id de l'utilisateur courant dont on cherche les invitations reçues
+ * @param
+ * @return
+ */
 function dbinvitationReceived($id){
     $sql="select login.Id, login.username from
 	(select * from approval where guest_id='$id' and status=0) as table1 inner join login
@@ -221,6 +281,12 @@ function dbinvitationReceived($id){
 
 }
 
+/**
+ * dbAcceptInvitation : Accepter une invitation
+ * @param int $id de l'invitation
+ * @param int $idOwner id de l'utilisateur qui a lancé l'invitation
+ * @return
+ */
 function dbAcceptInvitation($idOwner, $id){
     $retVal=false;
     $sql="UPDATE `approval` SET `status`=1 WHERE owner_id='$idOwner' and guest_id='$id'";
@@ -239,6 +305,12 @@ function dbAcceptInvitation($idOwner, $id){
     return $retVal;
 }
 
+/**
+ * dbRefuseInvitation : Refuser une invitation
+ * @param int $id de l'invitation
+ * @param int $idOwner id de l'utilisateur qui a lancé l'invitation
+ * @return
+ */
 function dbRefuseInvitation($idOwner, $id){
     $retVal=false;
     $sql="UPDATE `approval` SET `status`=2 WHERE owner_id='$idOwner' and guest_id='$id'";

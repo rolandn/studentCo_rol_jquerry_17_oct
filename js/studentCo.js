@@ -463,7 +463,7 @@ function addCoDiscipleCallBack(ret){
 
     }
     catch(err){
-        window.console.log("fetchcodiscipleCallBack -err = " + err);
+        window.console.log("fetchcodiscipleCallBack erreur = " + err);
     }
 
 
@@ -472,9 +472,9 @@ function addCoDiscipleCallBack(ret){
 
 
 function updateInvitationButton(id){
-    window.console.log("updateInvitationButton() -start");
+    window.console.log("updateInvitationButton() début");
     $("#boutonInvitation").attr(onclick,sendInvitation(id));
-    window.console.log("updateInvitationButton() -end");
+    window.console.log("updateInvitationButton() sortie");
 }
 
 /**
@@ -619,20 +619,20 @@ function invitationReceivedCallBack(ret){
  * @returns
  */
 function choiceInvitationButtons(id){
-    window.console.log("choiceInvitationButtons() -start");
+    window.console.log("choiceInvitationButtons() début");
     $("#boutonAccept").attr("onclick","AcceptInvitation("+id+")");
     $("#boutonRefuse").attr("onclick","RefuseInvitation("+id+")");
-    window.console.log("choiceInvitationButtons() -end");
+    window.console.log("choiceInvitationButtons() sortie");
 }
 
 /**
- *
- * @param
+ * Méthode pour accepter l'invitation
+ * @param id de l'invitation
  * @param
  * @returns
  */
 function AcceptInvitation(id){
-    window.console.log("AcceptInvitation() -start");
+    window.console.log("début de AcceptInvitation()");
     $.ajax({
         type:'GET',
         url:'bl/AcceptInvitation.php',
@@ -640,7 +640,7 @@ function AcceptInvitation(id){
         dataType:'text',
         success: AcceptInvitationCallBack
     });
-    window.console.log("AcceptInvitation() -end");
+    window.console.log("Je SORS de AcceptInvitation()");
 }
 
 /**
@@ -669,7 +669,7 @@ function AcceptInvitationCallBack(ret){
  * @returns
  */
 function RefuseInvitation(id){
-    window.console.log("RefuseInvitation() -start");
+    window.console.log("Début de RefuseInvitation()");
     $.ajax({
         type:'GET',
         url:'bl/RefuseInvitation.php',
@@ -677,7 +677,7 @@ function RefuseInvitation(id){
         dataType:'text',
         success: RefuseInvitationCallBack
     });
-    window.console.log("RefuseInvitation() -end");
+    window.console.log("Je SORS de RefuseInvitation()");
 }
 
 /**

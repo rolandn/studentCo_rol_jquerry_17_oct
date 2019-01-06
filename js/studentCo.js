@@ -295,16 +295,16 @@ function fetchTweetCallBack(ret){
     try
     {
         if(ret.length<=2){
-            var affiche = "Ecrire un tweet:<br> " +
+            var affiche = "<p style='color: #3b5998'>Ecrire un tweet:</p><br> " +
                 "<p style='align-content: baseline'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:300px;color: #3b5998; \"></p>"
-                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Tweeter\" onclick=\"writeTweet("+ret+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br>Liste des tweets<hr><br>";
+                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Tweeter\" onclick=\"writeTweet("+ret+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px;color: #3b5998\"><br><br>Liste des tweets<hr><br>";
             $('#wall').html(affiche + "Il n'y a aucun tweet sur ce mur.");
         }
         else{
             var jarray=$.parseJSON(ret);
             var idReceiver=jarray[0]['id_receiver'];
-            var affiche = "<hr><p class='h3'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;100px;color: #3b5998;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px;100px;color: #3b5998; \"><br></p>"
-                +"<input class=\"btn btn-warning\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweet\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px\"><br><br><p class='h3'>Liste des tweets</p><hr>";
+            var affiche = "<hr><p class='h3' style='color: #3b5998'>Ecrire un Tweet:</p><br> <p style='text-wrap: normal;100px;color: #3b5998;'><input type=\"text\" id=\"textBoxNewTweet\" style=\"width:350px;100px;color: #3b5998; \"><br></p>"
+                +"<input class=\"btn btn-dark\" id=\"boutonTweet\" type=\"button\" value=\"Poster le Tweet\" onclick=\"writeTweet("+idReceiver+");\" style=\"margin-bottom:10px; background-color:rgb(228,229,231); border:0px; font-size:12px;color: #3b5998\"><br><br><p class='h3' style='color: #3b5998'>Liste des tweets</p><hr>";
             for(var i = 0; i<jarray.length; i++ ){
                 var ligne="";
                 var row=jarray[i];
